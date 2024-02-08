@@ -1,0 +1,70 @@
+scalar BigDecimal
+
+type Query {
+    allStudents: [Student]!
+    allLaptops: [Laptop]!
+    allStudentPages(page: Int, size: Int): [Student]
+    findStudent(studentId: ID!): Student
+    findLaptop(laptopId: ID!): Laptop
+}
+
+type Mutation {
+    addStudent(student: addStudentDto): Student
+    addLaptop(laptop: addLaptopsDto): Laptop
+    deleteStudent(studentId: ID): Student
+    deleteLaptop(laptopId: ID): Laptop
+    updateStudent(student: StudentDto): Student
+    assignLaptops(studentId: ID!,laptopIds: [ID]!): Student
+    updateLaptop(laptop: LaptopDto): Laptop
+}
+
+
+type Student {
+    studentId: ID!
+    firstName: String
+    lastName: String
+    email: String
+    phoneNumber: String
+    laptops: [Laptop]!
+}
+
+type Laptop {
+    laptopId: ID!
+    brand: String
+    model: String
+    price: BigDecimal
+    isOnSale: String
+    student: Student
+}
+
+input StudentDto {
+    studentId: ID!
+    firstName: String
+    lastName: String
+    email: String
+    phoneNumber: String
+    laptops: [LaptopDto]!
+}
+
+input LaptopDto {
+    laptopId: ID!
+    brand: String
+    model: String
+    price: BigDecimal
+    isOnSale: Boolean
+    student: StudentDto
+}
+
+input addStudentDto {
+    firstName: String
+    lastName: String
+    email: String
+    phoneNumber: String
+}
+
+input addLaptopsDto {
+    brand: String
+    model: String
+    price: BigDecimal
+    isOnSale: Boolean
+}
